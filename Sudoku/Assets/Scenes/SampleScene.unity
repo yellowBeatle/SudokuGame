@@ -2153,7 +2153,7 @@ GameObject:
   - component: {fileID: 159720983}
   - component: {fileID: 159720982}
   m_Layer: 5
-  m_Name: Button (12)
+  m_Name: Save
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8689,7 +8689,7 @@ GameObject:
   - component: {fileID: 716741084}
   - component: {fileID: 716741083}
   m_Layer: 5
-  m_Name: Button (9)
+  m_Name: Erase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14129,7 +14129,7 @@ GameObject:
   - component: {fileID: 1134342990}
   - component: {fileID: 1134342989}
   m_Layer: 5
-  m_Name: Button (11)
+  m_Name: Solve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26275,7 +26275,7 @@ GameObject:
   - component: {fileID: 1994575451}
   - component: {fileID: 1994575450}
   m_Layer: 5
-  m_Name: Button (10)
+  m_Name: Clear All
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

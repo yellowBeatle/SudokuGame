@@ -21,11 +21,13 @@ public class Panel : MonoBehaviour, IPointerClickHandler
 		int.TryParse(myField.text, out myNum);
 		if(myNum>9||myNum<1)
 			EraseNumber();
+		SetNumber(myNum);
 	}
 	public void SetNumber(int num) 
 	{		
 		myNum = num;
 		myField.text = myNum.ToString();
+		SetCandidate(num);
 	}
 	public void SetCandidate(int cand)
 	{

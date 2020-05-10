@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PanelManager : MonoBehaviour
@@ -17,7 +18,7 @@ public class PanelManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space)) 
         {
-           GenerateSudoku();
+           SolveSudoku();
         }
         if(Input.GetKeyDown(KeyCode.E)) 
         {
@@ -25,7 +26,7 @@ public class PanelManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.R)) 
         {
-           RemoveNumber();          
+           Debug.Log(CheckSudoku());
         }
         
     }
@@ -58,7 +59,7 @@ public class PanelManager : MonoBehaviour
             }
         }
         return false;
-    }
+    }    
     void RemoveNumber()
     {
         int rnd = Random.Range(0,panelsWithNum.Count);
@@ -79,24 +80,35 @@ public class PanelManager : MonoBehaviour
     {
         FillSomeSpaces();
         SolveSudoku();
+        ShuffleList();
         GetSolvableSudoku();
     }
-    void GetSolvableSudoku()
+    void GetSolvableSudoku(int position = 0)
     {
-        int numOfSolutions = 0;
-        int randomPos = Random.Range(0,panels.Length);
-        DeletePanelNumber(panels[randomPos]);
-        List<Panel> emptyPanels = new List<Panel>();
-        emptyPanels.Add(panels[randomPos]);
-
-        while(numOfSolutions == 1)
-        {
-            if(CanBePlaced(panels[randomPos]))
-            {
-                
-            }
-        }
-
+       if(position>80)
+          return;
+       int numOfSolutions = 0;
+       List<PanelConsultant> currentPanelsCo = new List<PanelConsultant>();
+       currentPanelsCo = FindPanelConsultants(panelsWithNum[position]);
+       for(int i = 1; i <=9;++i)
+       {
+           panelsWithNum[position].SetCandidate(i);
+           foreach(PanelConsultant consultant in currentPanelsCo)
+           {
+               numOfSolutions += consultant.NumberOfSolutions(panelsWithNum[position]);
+           }
+       }
+       if(numOfSolutions <=12)
+       {
+           panelsWithNum[position].EraseNumber();
+           GetSolvableSudoku(++position);
+       }
+       GetSolvableSudoku(++position);
+           
+    } 
+    public void ShuffleList()
+    {        
+        panelsWithNum = panelsWithNum.OrderBy( x => Random.value ).ToList( );
     }
     void AddAllNumbers()
     {
@@ -164,7 +176,6 @@ public class PanelManager : MonoBehaviour
     public void SetCurrentSelectedPanel(Panel currentPanel)
     {
         currentSelectedPanel = currentPanel;
-        print(currentSelectedPanel);
     }
     public void DisablePanels(bool enable)
     {
@@ -191,6 +202,18 @@ public class PanelManager : MonoBehaviour
     public void EraseNumber()
     {
         currentSelectedPanel.EraseNumber();
+    }
+    public bool CheckSudoku()
+    {
+        foreach(Panel panel in panels)
+        {
+            if(!panel.HasNumber())
+                return false;
+
+            if(!CanBePlaced(panel))
+                return false;
+        } 
+        return true;
     }
     public int[] GetPanelsNum()
     {

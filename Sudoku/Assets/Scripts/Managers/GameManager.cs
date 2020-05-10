@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     enum GameState
     {
-        PLAYING,PAUSE, QUIT
+        PLAYING,PAUSE, QUIT, VICTORY
     }
     GameState currentGameState;
     public PanelManager myPanelManager;
@@ -77,5 +77,9 @@ public class GameManager : MonoBehaviour
     public void UnPauseGame()
     {
         ChangeState(GameState.PLAYING);    
+    }
+    public void PlayerWon()
+    {
+        if(myPanelManager.CheckSudoku())
     }
 }

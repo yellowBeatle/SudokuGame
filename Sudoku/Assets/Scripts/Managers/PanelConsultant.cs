@@ -38,4 +38,11 @@ public class PanelConsultant : MonoBehaviour
 		}
 		return null;
 	}
+	public int NumberOfSolutions(Panel panel)
+	{
+		int numberOfSolutions = 0;
+		if(CanBePlaced(panel))
+			numberOfSolutions++;
+		return numberOfSolutions;
+	}
 }
