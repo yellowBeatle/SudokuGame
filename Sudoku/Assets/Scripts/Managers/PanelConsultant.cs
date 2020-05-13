@@ -29,6 +29,17 @@ public class PanelConsultant : MonoBehaviour
 		}
 		return true;
 	}
+	public bool IsWellPlaced(Panel currentPanel)
+	{
+		for(int i = 0; i<panels.Length; ++i)
+		{
+			if(panels[i] == currentPanel)
+				continue;
+			if(currentPanel.GetCurrentNum()==panels[i].GetCurrentNum())
+				return false;
+		}
+		return true;
+	}
 	public PanelConsultant HasMyPanel(Panel panel)
 	{
 		for(int i = 0; i<panels.Length;++i)

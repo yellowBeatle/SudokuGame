@@ -12,7 +12,7 @@ public class Panel : MonoBehaviour, IPointerClickHandler
 	int myNum = 0;
 	int candidate;
 	
-	private void Start()
+	private void Awake()
 	{
 		myField = GetComponent<InputField>();		
 	}

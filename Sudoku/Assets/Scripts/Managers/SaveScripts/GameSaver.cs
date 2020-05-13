@@ -9,14 +9,18 @@ public class GameSaver
   public float seconds;
   public int minutes;
   public int hours;
-  public string bestTime;
+  public float bestSeconds;
+  public int bestMinutes;
+  public int bestHours;
 
-  public GameSaver(PanelManager myPanelManager, UIManager myUIManager)
+  public GameSaver(PanelManager myPanelManager, UIManager myUIManager, GameManager myGameManager)
   {
     panelsArray = myPanelManager.GetPanelsNum();
     seconds = myUIManager.GetSeconds();
     minutes = myUIManager.GetMinutes();
     hours = myUIManager.GetHours();
-    
+    bestSeconds = myGameManager.GetBestSeconds();
+    bestMinutes = myGameManager.GetBestMinutes();
+    bestHours = myGameManager.GetBestHours();
   }
 }

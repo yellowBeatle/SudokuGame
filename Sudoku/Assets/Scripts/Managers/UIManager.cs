@@ -17,10 +17,6 @@ public class UIManager : MonoBehaviour
     int minutes;
     int hours;
 
-    private void Start()
-    {
-        bestTime.text = "00:00:00";
-    }
     // Update is called once per frame
     void Update()
     {
@@ -52,8 +48,7 @@ public class UIManager : MonoBehaviour
     }
     public void SetBestTime(string currentBestTime)
     {        
-        bestTime.text = currentBestTime;
-        Debug.Log(bestTime.text);
+        bestTime.text = "Best time: " + currentBestTime;
     }
     public float GetSeconds()
     {

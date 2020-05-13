@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentGameState = GameState.PLAYING;
+        StartGame();
     }
     // Update is called once per frame
     void Update()
@@ -50,11 +50,13 @@ public class GameManager : MonoBehaviour
                 myUIManager.ShowPauseCanvas(false);
                 myPanelManager.DisablePanels(false);
                 break;
-            case GameState.QUIT:
-                myUIManager.ShowVictoryCanvas(false);
+            case GameState.QUIT:                
+                break;  
+            case GameState.VICTORY:
+                myUIManager.ShowVictoryCanvas(false);                
                 Time.timeScale = 1;
-                myPanelManager.DisablePanels(false);
-                break;       
+                myPanelManager.DisablePanels(false);                
+                break;
         }
         switch(nextState)
         {
@@ -78,13 +80,16 @@ public class GameManager : MonoBehaviour
     }
     public void SaveGame()
     {
-        SaveSystem.SaveGame(myPanelManager,myUIManager);
+        SaveSystem.SaveGame(myPanelManager,myUIManager,this);
     }
     public void LoadGame()
     {
         GameSaver gameSaver = SaveSystem.LoadGame();
         myPanelManager.SetPanelsNum(gameSaver);
         myUIManager.LoadTime(gameSaver);
+        bestHours = gameSaver.bestHours;
+        bestMinutes = gameSaver.bestMinutes;
+        bestSeconds = gameSaver.bestSeconds;
     }
     public void UnPauseGame()
     {
@@ -93,7 +98,7 @@ public class GameManager : MonoBehaviour
     public void PlayerWon()
     {
         if(myPanelManager.CheckSudoku())
-        {            
+        {           
             if(!(bestHours == 0 && bestMinutes==0 && bestSeconds == 0))
             {             
                 int totalSeconds = myUIManager.GetHours()*3600 + myUIManager.GetMinutes()*60 + (int)myUIManager.GetSeconds();
@@ -111,8 +116,30 @@ public class GameManager : MonoBehaviour
                 bestMinutes = myUIManager.GetMinutes();
                 bestSeconds = myUIManager.GetSeconds();
             }        
-            myUIManager.SetBestTime("Best time: " + bestHours.ToString("00") + ":" + bestMinutes.ToString("00") + ":" + bestSeconds.ToString("00"));
+            myUIManager.SetBestTime(bestHours.ToString("00") + ":" + bestMinutes.ToString("00") + ":" + bestSeconds.ToString("00"));
             ChangeState(GameState.VICTORY);
         }
     }
+    public void StartGame()
+    {
+        myUIManager.SetBestTime(bestHours.ToString("00") + ":" + bestMinutes.ToString("00") + ":" + bestSeconds.ToString("00"));
+        ChangeState(GameState.PLAYING);
+        myPanelManager.GenerateSudoku();
+    }
+
+	//Getters	
+	#region
+	public int GetBestHours()
+    {
+        return bestHours;
+    }
+    public int GetBestMinutes()
+    {
+        return bestMinutes;
+    }
+    public float GetBestSeconds()
+    {
+        return bestSeconds;
+    }
+	#endregion
 }

@@ -76,7 +76,7 @@ public class PanelManager : MonoBehaviour
     {
         currentPanel.EraseNumber();
     }
-    void GenerateSudoku()
+    public void GenerateSudoku()
     {
         FillSomeSpaces();
         SolveSudoku();
@@ -130,15 +130,24 @@ public class PanelManager : MonoBehaviour
     {
         List<PanelConsultant> currentPanelsCo = new List<PanelConsultant>();
         currentPanelsCo = FindPanelConsultants(panel);
-        int count = 0;
         for(int i = 0;i<currentPanelsCo.Count;++i)
         {
-            if(currentPanelsCo[i].CanBePlaced(panel))
-                count++;
+            if(!currentPanelsCo[i].CanBePlaced(panel))
+                return false;
         }
-        return count == currentPanelsCo.Count;
+        return true;
     }
-
+    bool IsWellPlaced(Panel panel)
+    {
+        List<PanelConsultant> currentPanelsCo = new List<PanelConsultant>();
+        currentPanelsCo = FindPanelConsultants(panel);
+        for(int i = 0;i<currentPanelsCo.Count;++i)
+        {
+            if(!currentPanelsCo[i].IsWellPlaced(panel))
+                return false;
+        }
+        return true;
+    }
 
     List<PanelConsultant> FindPanelConsultants(Panel panel)
     {
@@ -210,7 +219,7 @@ public class PanelManager : MonoBehaviour
             if(!panel.HasNumber())
                 return false;
 
-            if(!CanBePlaced(panel))
+            if(!IsWellPlaced(panel))
                 return false;
         } 
         return true;
