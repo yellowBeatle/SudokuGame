@@ -165,6 +165,13 @@ public class PanelManager : MonoBehaviour
         }
         return currentPanelsCo;
     }
+    public void ClearAllPanels()
+    {
+        foreach(Panel currentPanel in panels)
+        {
+            currentPanel.EraseNumber();
+        }    
+    }
     void FillSomeSpaces()
     {       
         FillRandomPanelsDiagonal(squarePanels[0]);

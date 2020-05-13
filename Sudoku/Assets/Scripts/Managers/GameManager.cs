@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
             case GameState.VICTORY:
                 myUIManager.ShowVictoryCanvas(false);                
                 Time.timeScale = 1;
+                myPanelManager.ClearAllPanels();
                 myPanelManager.DisablePanels(false);                
                 break;
         }
@@ -123,8 +124,8 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         myUIManager.SetBestTime(bestHours.ToString("00") + ":" + bestMinutes.ToString("00") + ":" + bestSeconds.ToString("00"));
-        ChangeState(GameState.PLAYING);
-        myPanelManager.GenerateSudoku();
+        ChangeState(GameState.PLAYING);        
+        //myPanelManager.GenerateSudoku();
     }
 
 	//Getters	
