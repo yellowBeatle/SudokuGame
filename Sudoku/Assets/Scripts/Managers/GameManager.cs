@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     GameState currentGameState;
     public PanelManager myPanelManager;
     public UIManager myUIManager;
+    int bestHours;
+    int bestMinutes;
+    float bestSeconds;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +51,9 @@ public class GameManager : MonoBehaviour
                 myPanelManager.DisablePanels(false);
                 break;
             case GameState.QUIT:
+                myUIManager.ShowVictoryCanvas(false);
+                Time.timeScale = 1;
+                myPanelManager.DisablePanels(false);
                 break;       
         }
         switch(nextState)
@@ -60,7 +66,13 @@ public class GameManager : MonoBehaviour
                 myUIManager.ShowPauseCanvas(true);
                 break;
             case GameState.QUIT:
-                break;       
+                break;
+            case GameState.VICTORY:
+                myUIManager.ShowVictoryCanvas(true);
+                myUIManager.SetRecords();
+                Time.timeScale = 0;
+                myPanelManager.DisablePanels(true);                
+                break;
         }
         currentGameState = nextState;
     }
@@ -81,5 +93,26 @@ public class GameManager : MonoBehaviour
     public void PlayerWon()
     {
         if(myPanelManager.CheckSudoku())
+        {            
+            if(!(bestHours == 0 && bestMinutes==0 && bestSeconds == 0))
+            {             
+                int totalSeconds = myUIManager.GetHours()*3600 + myUIManager.GetMinutes()*60 + (int)myUIManager.GetSeconds();
+                int totalsBestSeconds = bestHours * 3600 + bestMinutes*60 + (int)bestSeconds;
+                if(totalSeconds<totalsBestSeconds)
+                {
+                    bestHours = myUIManager.GetHours();
+                    bestMinutes = myUIManager.GetMinutes();
+                    bestSeconds = myUIManager.GetSeconds();
+                }
+            }
+            else
+            {
+                bestHours = myUIManager.GetHours();
+                bestMinutes = myUIManager.GetMinutes();
+                bestSeconds = myUIManager.GetSeconds();
+            }        
+            myUIManager.SetBestTime("Best time: " + bestHours.ToString("00") + ":" + bestMinutes.ToString("00") + ":" + bestSeconds.ToString("00"));
+            ChangeState(GameState.VICTORY);
+        }
     }
 }

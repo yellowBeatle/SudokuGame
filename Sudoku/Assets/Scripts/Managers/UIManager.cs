@@ -7,12 +7,20 @@ public class UIManager : MonoBehaviour
 {
     public Text currentTime;
     public Text bestTime;
+    public Text victoryTime;
+    public Text victoryBestTime;
     [SerializeField]
     GameObject pauseCanvas;
+    [SerializeField]
+    GameObject victoryCanvas;
     float seconds;
     int minutes;
     int hours;
 
+    private void Start()
+    {
+        bestTime.text = "00:00:00";
+    }
     // Update is called once per frame
     void Update()
     {
@@ -33,6 +41,20 @@ public class UIManager : MonoBehaviour
     {
         pauseCanvas.SetActive(enable);
     }
+    public void ShowVictoryCanvas(bool enable)
+    {
+        victoryCanvas.SetActive(enable);
+    }
+    public void SetRecords()
+    {
+        victoryTime.text = "Time: " + currentTime.text;
+        victoryBestTime.text = bestTime.text;
+    }
+    public void SetBestTime(string currentBestTime)
+    {        
+        bestTime.text = currentBestTime;
+        Debug.Log(bestTime.text);
+    }
     public float GetSeconds()
     {
         return seconds;
@@ -44,7 +66,7 @@ public class UIManager : MonoBehaviour
     public int GetHours()
     {
         return hours;
-    }
+    }    
     public void LoadTime(GameSaver myGamesaver)
     {
         seconds = myGamesaver.seconds;

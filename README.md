@@ -3,7 +3,9 @@
 
 
 TO DO:
-- Implement victory state
+- Search for a typography
+- Implement particles
+- Implement Restart button
 - Main menu
 - Review generator algorithm 
 - Review button layout
