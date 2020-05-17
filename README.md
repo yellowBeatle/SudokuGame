@@ -12,5 +12,5 @@ TO DO:
 - Art research
 - Implement Clear All button
 - Lock algorithm numbers
-- Implement best time record
+- Review ClearAllPanels function use
 - Set final GameManager
