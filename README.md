@@ -3,14 +3,11 @@
 
 
 TO DO:
-- Search for a typography
+- Create buttons sprites
 - Implement particles
 - Implement Restart button
 - Main menu
 - Review generator algorithm 
 - Review button layout
 - Art research
-- Implement Clear All button
-- Lock algorithm numbers
-- Review ClearAllPanels function use
-- Set final GameManager
+- Creating the NEW Label

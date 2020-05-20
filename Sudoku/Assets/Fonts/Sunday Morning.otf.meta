@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: f4d9a88adceacad43b8e3419446b5dda
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Sunday Morning
+  fontNames:
+  - Sunday Morning
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 2d5a931d62b68614a8bfc28024e5adb0, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -19,18 +19,7 @@ public class UIManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        seconds+=Time.deltaTime;
-        if(seconds>=60)
-        {
-            seconds = 0;
-            minutes++;
-            if(minutes>=60)
-            {
-                minutes = 0;
-                hours++;
-            }
-        }
+    {        
         currentTime.text = hours.ToString("00") + ":" + minutes.ToString("00") + ":" + seconds.ToString("00");
     }
     public void ShowPauseCanvas(bool enable)
@@ -43,25 +32,19 @@ public class UIManager : MonoBehaviour
     }
     public void SetRecords()
     {
-        victoryTime.text = "Time: " + currentTime.text;
+        victoryTime.text = currentTime.text;
         victoryBestTime.text = bestTime.text;
+    }
+    public void SetCurrentTime(float gameSeconds, int gameMinutes, int gameHours)
+    {
+        seconds = gameSeconds;
+        minutes = gameMinutes;
+        hours = gameHours;
     }
     public void SetBestTime(string currentBestTime)
     {        
-        bestTime.text = "Best time: " + currentBestTime;
+        bestTime.text = currentBestTime;
     }
-    public float GetSeconds()
-    {
-        return seconds;
-    }
-    public int GetMinutes()
-    {
-        return minutes;
-    }
-    public int GetHours()
-    {
-        return hours;
-    }    
     public void LoadTime(GameSaver myGamesaver)
     {
         seconds = myGamesaver.seconds;

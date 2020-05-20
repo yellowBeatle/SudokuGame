@@ -56,6 +56,6 @@ public class Panel : MonoBehaviour, IPointerClickHandler
     }
 	public void Disable(bool enable)
 	{
-		myField.interactable = enable;
+		myField.interactable = !enable;
 	}
 }

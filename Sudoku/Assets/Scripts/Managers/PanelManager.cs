@@ -13,6 +13,7 @@ public class PanelManager : MonoBehaviour
     public int numOfPanelsToRemove;
     int currentFilledCells;
     List<Panel> panelsWithNum = new List<Panel>();
+    List<Panel> emptyPanels = new List<Panel>();
 
     void Update()
     {
@@ -59,53 +60,63 @@ public class PanelManager : MonoBehaviour
             }
         }
         return false;
-    }    
-    void RemoveNumber()
-    {
-        int rnd = Random.Range(0,panelsWithNum.Count);
-        Panel panelToErase = panels[rnd];
-        while(!panelToErase.HasNumber())
-        {
-            rnd = rnd + 1 % panelsWithNum.Count;
-            panelToErase = panels[rnd];
-        }
-        panels[rnd].EraseNumber();
-        panelsWithNum.Remove(panels[rnd]);
-    }
-    void DeletePanelNumber(Panel currentPanel)
-    {
-        currentPanel.EraseNumber();
-    }
+    }        
     public void GenerateSudoku()
     {
+        DisablePanels(true);
         FillSomeSpaces();
         SolveSudoku();
         ShuffleList();
         GetSolvableSudoku();
+        LockNumbers();
     }
     void GetSolvableSudoku(int position = 0)
     {
-       if(position>80)
+       if(position>=panels.Length)
           return;
        int numOfSolutions = 0;
        List<PanelConsultant> currentPanelsCo = new List<PanelConsultant>();
-       currentPanelsCo = FindPanelConsultants(panelsWithNum[position]);
+       currentPanelsCo = FindPanelConsultants(panels[position]);
        for(int i = 1; i <=9;++i)
        {
-           panelsWithNum[position].SetCandidate(i);
+           panels[position].SetCandidate(i);
            foreach(PanelConsultant consultant in currentPanelsCo)
            {
-               numOfSolutions += consultant.NumberOfSolutions(panelsWithNum[position]);
+               numOfSolutions += consultant.NumberOfSolutions(panels[position]);
            }
        }
        if(numOfSolutions <=12)
        {
-           panelsWithNum[position].EraseNumber();
-           GetSolvableSudoku(++position);
+           panels[position].EraseNumber();
+           panelsWithNum.Remove(panels[position]);
+           emptyPanels.Add(panels[position]);
        }
        GetSolvableSudoku(++position);
            
     } 
+    void LockNumbers()
+    {
+        for(int i = 0; i<panelsWithNum.Count; ++i)
+        {
+            panelsWithNum[i].Disable(true);
+        }
+    }
+    public void ClearAllNumbers()
+    {
+        for(int i = 0; i<panels.Length;++i)
+        {
+            panels[i].EraseNumber();
+        }
+        panelsWithNum.Clear();
+        emptyPanels.Clear();
+    }
+    public void ClearAllUserNumbers()
+    {
+        foreach(Panel panel in emptyPanels)
+        {
+            panel.EraseNumber();
+        }
+    }
     public void ShuffleList()
     {        
         panelsWithNum = panelsWithNum.OrderBy( x => Random.value ).ToList( );
@@ -164,13 +175,6 @@ public class PanelManager : MonoBehaviour
                 break;
         }
         return currentPanelsCo;
-    }
-    public void ClearAllPanels()
-    {
-        foreach(Panel currentPanel in panels)
-        {
-            currentPanel.EraseNumber();
-        }    
     }
     void FillSomeSpaces()
     {       
