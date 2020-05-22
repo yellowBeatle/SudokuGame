@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
     {
         myUIManager.SetBestTime(bestHours.ToString("00") + ":" + bestMinutes.ToString("00") + ":" + bestSeconds.ToString("00"));
         ChangeState(GameState.PLAYING);        
-        myPanelManager.GenerateSudoku();
+        //myPanelManager.GenerateSudoku();
         seconds = 0;
         minutes = 0;
         hours = 0;

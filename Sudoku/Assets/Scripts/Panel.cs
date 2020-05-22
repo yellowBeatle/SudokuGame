@@ -9,6 +9,7 @@ public class Panel : MonoBehaviour, IPointerClickHandler
 {
 	public UnityEvent OnPlayerClicked;
 	InputField myField;	
+	List<int> candidates = new List<int>();
 	int myNum = 0;
 	int candidate;
 	
@@ -57,5 +58,18 @@ public class Panel : MonoBehaviour, IPointerClickHandler
 	public void Disable(bool enable)
 	{
 		myField.interactable = !enable;
+	}
+	public void AddCandidate(int num)
+	{
+		if(!candidates.Contains(num))
+			candidates.Add(num);
+	}
+	public void EraseCandidates()
+	{
+		candidates.Clear();
+	}
+	public List<int> GetListOfCandidates()
+	{
+		return candidates;
 	}
 }
