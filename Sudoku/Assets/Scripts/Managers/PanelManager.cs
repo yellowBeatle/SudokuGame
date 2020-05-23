@@ -46,7 +46,7 @@ public class PanelManager : MonoBehaviour
                 position = i;        
                 break;
             }                   
-        }      
+        }  
         for(int i=1;i<=9;++i)
         {
             panels[position].SetCandidate(i);
@@ -93,11 +93,11 @@ public class PanelManager : MonoBehaviour
        }
        GetSolvableSudoku(++position);           
     }     
-    bool ItsUniqueSudoku(int index = 0)
+    void ItsUniqueSudoku(int index = 0)
     {   
         if(index >= panels.Length)
-            return true;
-        Panel currentPanel = panelsWithNum[index];
+            return;
+        Panel currentPanel = panels[index];
         int currentNum = currentPanel.GetCurrentNum();
         currentPanel.EraseNumber();
         panelsWithNum.Remove(currentPanel);
@@ -118,18 +118,54 @@ public class PanelManager : MonoBehaviour
             for(int i = 0; i<candidatesOfCurrentPanel.Count; i++)
             {              
                 currentPanel.SetNumber(candidatesOfCurrentPanel[i]);
-                for(int j = 0; j<emptyPanels.Count;++j)
+                if(SolveSudokuUnique())
                 {
-                    if(emptyPanels[j]==currentPanel)
-                        continue;
-                    
+                    numOfSolutions++;                    
                 }
             }
+            if(numOfSolutions>1)
+            {
+                currentPanel.SetNumber(currentNum);
+                emptyPanels.Remove(currentPanel);
+                panelsWithNum.Add(currentPanel);
+            }
+            numOfSolutions=0;
         }
            ItsUniqueSudoku(++index);     
-
-        return true;
     }
+    bool SolveSudokuUnique()
+    {        
+        if(!FindEmptyCells())
+        { 
+            for(int i = 0; i<emptyPanels.Count;++i)
+            {
+                emptyPanels[i].EraseNumber();           
+            }  
+             return true;
+        }        
+        int position = 0;
+        for(int i = position; i<emptyPanels.Count;++i)
+        {
+            if(!emptyPanels[i].HasNumber())
+            {
+                position = i;        
+                break;
+            }                   
+        }      
+        for(int i=1;i<=9;++i)
+        {
+            emptyPanels[position].SetCandidate(i);
+            if(CanBePlaced(emptyPanels[position]))
+            {              
+                emptyPanels[position].SetNumber(i);
+                if(SolveSudokuUnique())
+                    return true;
+                else
+                    emptyPanels[position].EraseNumber();
+            }
+        }
+        return false;
+    }        
     void LockNumbers()
     {
         for(int i = 0; i<panelsWithNum.Count; ++i)
