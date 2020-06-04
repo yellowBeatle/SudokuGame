@@ -7,7 +7,6 @@ TO DO:
 - Implement particles
 - Implement Restart button
 - Main menu
-- Review generator algorithm 
 - Review button layout
 - Art research
 - Creating the NEW Label
