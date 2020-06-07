@@ -63,39 +63,14 @@ public class PanelManager : MonoBehaviour
         return false;
     }        
     public void GenerateSudoku()
-    {
-        DisablePanels(true);
+    {        
         FillSomeSpaces();
         SolveSudoku();
         ShuffleList();
-        //GetSolvableSudoku();
         ItsUniqueSudoku();
         UpdatePanelsWithNum();
         LockNumbers();
-    }
-    void GetSolvableSudoku(int position = 0)
-    {
-       if(position>=panels.Length)
-          return;
-       int numOfSolutions = 0;
-       List<PanelConsultant> currentPanelsCo = new List<PanelConsultant>();
-       currentPanelsCo = FindPanelConsultants(panels[position]);
-       for(int i = 1; i <=9;++i)
-       {
-           panels[position].SetCandidate(i);
-           foreach(PanelConsultant consultant in currentPanelsCo)
-           {
-               numOfSolutions += consultant.NumberOfSolutions(panels[position]);
-           }
-       }
-       if(numOfSolutions <=12)
-       {
-           panels[position].EraseNumber();
-           panelsWithNum.Remove(panels[position]);
-           emptyPanels.Add(panels[position]);
-       }
-       GetSolvableSudoku(++position);           
-    }     
+    }    
     void ItsUniqueSudoku(int index = 0)
     {   
         if(index >= panelsWithNum.Count)
@@ -135,6 +110,7 @@ public class PanelManager : MonoBehaviour
     }    
     void LockNumbers()
     {
+        DisablePanels(true);
         for(int i = 0; i<panelsWithNum.Count; ++i)
         {
             panelsWithNum[i].Disable(true);           
@@ -149,14 +125,26 @@ public class PanelManager : MonoBehaviour
         }
     }
     public void ClearAllNumbers()
-    {
+    {   
         for(int i = 0; i<panels.Length;++i)
-        {
+        {            
             panels[i].EraseNumber();
+        }
+        for(int i = 0; i<horizontalPanels.Length;++i)
+        {
+            horizontalPanels[i].EraseAllCandidates();
+        }
+        for(int i = 0; i<verticalPanels.Length;++i)
+        {
+            verticalPanels[i].EraseAllCandidates();
+        }
+        for(int i = 0; i<squarePanels.Length;++i)
+        {
+            squarePanels[i].EraseAllCandidates();
         }
         panelsWithNum.Clear();
         emptyPanels.Clear();
-    }
+    }   
     public void ClearAllUserNumbers()
     {
         foreach(Panel panel in emptyPanels)

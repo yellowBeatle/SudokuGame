@@ -67,6 +67,7 @@ public class Panel : MonoBehaviour, IPointerClickHandler
 	public void EraseCandidates()
 	{
 		candidates.Clear();
+		candidate = 0;
 	}
 	public List<int> GetListOfCandidates()
 	{

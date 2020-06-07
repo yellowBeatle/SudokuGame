@@ -11781,7 +11781,6 @@ MonoBehaviour:
   - {fileID: 1518744069}
   - {fileID: 1346398045}
   - {fileID: 1693416409}
-  numOfPanelsToRemove: 0
 --- !u!4 &837297122
 Transform:
   m_ObjectHideFlags: 0
@@ -27112,7 +27111,7 @@ GameObject:
   - component: {fileID: 1994575451}
   - component: {fileID: 1994575450}
   m_Layer: 5
-  m_Name: Clear All
+  m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28526,9 +28525,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Clear all
-
-'
+  m_Text: Restart
 --- !u!222 &2139195127
 CanvasRenderer:
   m_ObjectHideFlags: 0

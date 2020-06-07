@@ -56,4 +56,11 @@ public class PanelConsultant : MonoBehaviour
 			numberOfSolutions++;
 		return numberOfSolutions;
 	}
+	public void EraseAllCandidates()
+	{
+		for(int i = 0; i<panels.Length;++i)
+		{
+			panels[i].EraseCandidates();
+		}
+	}
 }
