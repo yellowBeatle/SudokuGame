@@ -5,7 +5,7 @@
 TO DO:
 - Create buttons sprites
 - Implement particles
-- Implement Restart button
+- Load best time at the beginning of the game
 - Main menu
 - Review button layout
 - Art research
