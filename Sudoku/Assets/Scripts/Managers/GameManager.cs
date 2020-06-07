@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
             case GameState.VICTORY:
                 myUIManager.ShowVictoryCanvas(true);
                 myUIManager.SetRecords();
+                SaveGame();
                 break;
         }
         currentGameState = nextState;
@@ -123,6 +124,13 @@ public class GameManager : MonoBehaviour
     }
     public void StartGame()
     {
+        GameSaver gameSaver = SaveSystem.LoadGame();
+        if(gameSaver!=null)
+        {
+            bestHours = gameSaver.bestHours;
+            bestMinutes = gameSaver.bestMinutes;
+            bestSeconds = gameSaver.bestSeconds;
+        }
         myUIManager.SetBestTime(bestHours.ToString("00") + ":" + bestMinutes.ToString("00") + ":" + bestSeconds.ToString("00"));
         ChangeState(GameState.PLAYING);        
         myPanelManager.GenerateSudoku();
