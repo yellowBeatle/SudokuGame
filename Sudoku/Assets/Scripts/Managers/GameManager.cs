@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
     public void LoadGame()
     {
         GameSaver gameSaver = SaveSystem.LoadGame();
-        myPanelManager.SetPanelsNum(gameSaver);
+        myPanelManager.SetPanels(gameSaver);
         myUIManager.LoadTime(gameSaver);
         bestHours = gameSaver.bestHours;
         bestMinutes = gameSaver.bestMinutes;

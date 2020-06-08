@@ -15,7 +15,7 @@ public class Panel : MonoBehaviour, IPointerClickHandler
 	
 	private void Awake()
 	{
-		myField = GetComponent<InputField>();		
+		myField = GetComponent<InputField>();
 	}
 	public void WriteOnMe()
 	{		
@@ -25,9 +25,12 @@ public class Panel : MonoBehaviour, IPointerClickHandler
 		SetNumber(myNum);
 	}
 	public void SetNumber(int num) 
-	{		
+	{	
 		myNum = num;
-		myField.text = myNum.ToString();
+		if(num!=0)
+			myField.text = myNum.ToString();
+		else
+			myField.text = " ";
 		SetCandidate(num);
 	}
 	public void SetCandidate(int cand)
@@ -58,6 +61,10 @@ public class Panel : MonoBehaviour, IPointerClickHandler
 	public void Disable(bool enable)
 	{
 		myField.interactable = !enable;
+	}
+	public bool IsDisabled()
+	{
+		return !myField.interactable;
 	}
 	public void AddCandidate(int num)
 	{

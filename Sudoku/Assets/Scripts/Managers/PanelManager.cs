@@ -282,9 +282,23 @@ public class PanelManager : MonoBehaviour
         }
         return numbers;
     }
-    public void SetPanelsNum(GameSaver gameSaver)
+    public bool[] GetPanelsDisability()
+    {
+        bool[] booleans = new bool[panels.Length];
+        int index = 0;
+        foreach(Panel currentPanel in panels)
+        {
+            booleans[index] = currentPanel.IsDisabled();
+            index++;
+        }
+        return booleans;
+    }
+    public void SetPanels(GameSaver gameSaver)
     {
         for(int i=0;i<panels.Length;++i)
+        {
             panels[i].SetNumber(gameSaver.panelsArray[i]);
+            panels[i].Disable(gameSaver.panelsDisability[i]);
+        }
     }
 }

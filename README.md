@@ -4,6 +4,7 @@
 
 TO DO:
 - Create buttons sprites
+- Solve bug where best time is set when changing scene
 - Implement particles
 - Main menu
 - Review button layout
