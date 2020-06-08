@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     GameState currentGameState;
     public PanelManager myPanelManager;
     public UIManager myUIManager;
+    public SceneController mySceneController;
     float seconds;
     int minutes;
     int hours;
@@ -137,6 +138,11 @@ public class GameManager : MonoBehaviour
         seconds = 0;
         minutes = 0;
         hours = 0;
+    }
+    public void ChangeScene(string name)
+    {
+        SaveGame();
+        mySceneController.ChangeScene(name);
     }
 
 	//Getters	
