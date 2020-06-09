@@ -79,8 +79,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.VICTORY:
                 myUIManager.ShowVictoryCanvas(true);
-                myUIManager.SetRecords();
-                SaveGame();
+                myUIManager.SetRecords();                
                 break;
         }
         currentGameState = nextState;
@@ -89,14 +88,20 @@ public class GameManager : MonoBehaviour
     {
         SaveSystem.SaveGame(myPanelManager,this);
     }
+    void SaveRecord()
+    {
+        PlayerPrefs.SetInt("BestHours", bestHours);
+        PlayerPrefs.SetInt("BestMinutes", bestMinutes);
+        PlayerPrefs.SetFloat("BestSeconds", bestSeconds);
+    }
     public void LoadGame()
     {
         GameSaver gameSaver = SaveSystem.LoadGame();
         myPanelManager.SetPanels(gameSaver);
-        myUIManager.LoadTime(gameSaver);
-        bestHours = gameSaver.bestHours;
-        bestMinutes = gameSaver.bestMinutes;
-        bestSeconds = gameSaver.bestSeconds;
+        myUIManager.LoadTime(gameSaver);        
+        hours = gameSaver.hours;
+        minutes = gameSaver.minutes;
+        seconds = gameSaver.seconds;
     }
     public void PlayerWon()
     {
@@ -120,6 +125,7 @@ public class GameManager : MonoBehaviour
                 bestSeconds = seconds;
             }        
             myUIManager.SetBestTime(bestHours.ToString("00") + ":" + bestMinutes.ToString("00") + ":" + bestSeconds.ToString("00"));
+            SaveRecord();
             ChangeState(GameState.VICTORY);
         }
     }
@@ -128,9 +134,9 @@ public class GameManager : MonoBehaviour
         GameSaver gameSaver = SaveSystem.LoadGame();
         if(gameSaver!=null)
         {
-            bestHours = gameSaver.bestHours;
-            bestMinutes = gameSaver.bestMinutes;
-            bestSeconds = gameSaver.bestSeconds;
+            bestHours = PlayerPrefs.GetInt("BestHours",0);
+            bestMinutes = PlayerPrefs.GetInt("BestMinutes",0);
+            bestSeconds = PlayerPrefs.GetFloat("BestSeconds",0);
         }
         myUIManager.SetBestTime(bestHours.ToString("00") + ":" + bestMinutes.ToString("00") + ":" + bestSeconds.ToString("00"));
         ChangeState(GameState.PLAYING);        
