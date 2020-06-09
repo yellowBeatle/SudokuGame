@@ -150,7 +150,13 @@ public class GameManager : MonoBehaviour
         SaveGame();
         mySceneController.ChangeScene(name);
     }
-
+    public void RestartGame()
+    {
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+        myPanelManager.ClearAllUserNumbers();
+    }
 	//Getters	
 	#region
 	public int GetBestHours()

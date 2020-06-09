@@ -14,24 +14,6 @@ public class PanelManager : MonoBehaviour
     List<Panel> panelsWithNum = new List<Panel>();
     List<Panel> emptyPanels = new List<Panel>();
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space)) 
-        {
-           SolveSudoku();
-
-        }
-        if(Input.GetKeyDown(KeyCode.E)) 
-        {
-           FillSomeSpaces();           
-        }
-        if(Input.GetKeyDown(KeyCode.R)) 
-        {
-           ShuffleList();
-           ItsUniqueSudoku();
-        }
-        
-    }
     public bool SolveSudoku()
     {        
         if(!FindEmptyCells())
@@ -64,6 +46,7 @@ public class PanelManager : MonoBehaviour
     }        
     public void GenerateSudoku()
     {        
+        ClearAllNumbers();
         FillSomeSpaces();
         SolveSudoku();
         ShuffleList();
